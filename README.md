@@ -1,1 +1,1 @@
-# rock-paper-scissors
+A simple rock-paper-scissors game, created to practice fundamental javascript concepts
