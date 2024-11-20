@@ -16,9 +16,10 @@ function getComputerChoice(){
 
 // Finds and returns the result of the round by comparing the human and computer choices
 function playRound(humanChoice){
+    round++;
     let computerChoice = getComputerChoice();
 
-    // Define winning conditions by using an object
+    // Define win conditions using an object
     const winConditions = {
         ROCK: "SCISSORS",
         PAPER: "ROCK",
@@ -26,89 +27,57 @@ function playRound(humanChoice){
     }
 
     let result;
-
     if (humanChoice === computerChoice) {
-        result = "Draw";
+        result = "DRAW";
     } else if (winConditions[humanChoice] === computerChoice) {
-        result = "Win";
+        result = "WIN";
+        playerScore++;
     } else {
-        result = "Lose";
+        result = "LOSE";
+        computerScore++;
     }
 
-    console.log(result);
-    console.log("Player chose " + humanChoice + ", computer chose " + computerChoice);
+    displayResult(result, humanChoice, computerChoice);
 }
 
+function displayResult(result, humanChoice, computerChoice){
 
-// function playGame(rounds){
-//     // Init game variables
-//     let humanScore = 0;
-//     let computerScore = 0;
-//     let humanChoice;
-//     let computerChoice;
-//     let roundResult;
+    // Reset content inside of resultContainer
+    resultContainer.innerHTML = "";
 
-//     // Use a for loop to play the game for all rounds
-//     // for (let i = 1; i < rounds+1; i++){
-//         // Display the round number
-//         // console.log("--- ROUND " + i + " ---");
+    // Create result elements
+    const roundHeader = document.createElement("h3");
+    roundHeader.classList.add("roundHeader");
+    roundHeader.textContent = "Round " + round + " of " + MAX_ROUNDS;
+    roundHeader.setAttribute("style", "color: red");
+    resultContainer.appendChild(roundHeader);
 
-//         // Get the player's choice
-//         // humanChoice = getHumanChoice();
+    const roundResult = document.createElement("p");
+    roundResult.classList.add("roundResult");
+    roundResult.setAttribute("style", "white-space: pre");
+    roundResult.textContent = result + "!\r\n";
+    roundResult.textContent += "Player chose " + humanChoice + ", computer chose " + computerChoice;
+    resultContainer.appendChild(roundResult);
 
-//         // Get the computer's choice
-//         computerChoice = getComputerChoice();
+    const scoreTalley = document.createElement("p");
+    scoreTalley.classList.add("scoreTalley");
+    scoreTalley.setAttribute("style", "white-space: pre");
+    scoreTalley.textContent = "--- SCORE ---\r\n";
+    scoreTalley.textContent += "Player: " + playerScore + "\r\n";
+    scoreTalley.textContent += "Computer: " + computerScore;
+    resultContainer.appendChild(scoreTalley);
+}
 
-//         // Get the round result by calling playRound
-//         roundResult = playRound(humanChoice, computerChoice);
+const resultContainer = document.querySelector(".resultContainer");
+const MAX_ROUNDS = 5;
+let round = 0;
+let playerScore = 0;
+let computerScore = 0;
 
-//         // Display the appropriate message and increment the score
-//         switch(roundResult){
-//             case "Win":{
-//                 console.log("You Win! Your " + humanChoice.toLowerCase() + " beat the computer's " + computerChoice.toLowerCase() + "!");
-//                 humanScore++;
-//                 break;
-//             }
-//             case "Lose":{
-//                 console.log("You lose! Your " + humanChoice.toLowerCase() + " lost to the computer's "
-//                 + computerChoice.toLowerCase() + "!");
-//                 computerScore++;
-//                 break;
-//             }
-//             case "Draw":{
-//                 console.log("Draw! Both players used " + humanChoice.toLowerCase() + "!");
-//                 break;
-//             }
-//         // }
-
-//         // Display the score
-//         console.log("SCORE TALLEY: \n   Player: " + humanScore + "\n" + "   Computer: " + computerScore);
-//     }
-
-//     // Display match results
-//     displayMatchResults(humanScore, computerScore);
-    
-// }
-
-// // Function that writes the match results to the console
-// function displayMatchResults(humanScore, computerScore){
-//     console.log("MATCH RESULTS:")
-//     if(humanScore === computerScore){
-//         console.log("Draw! Both players had " + humanScore + " points!");
-//     }
-//     else if(humanScore > computerScore){
-//         console.log("You win! You scored " + humanScore + " points, while the computer scored " + computerScore + " points!");
-//     }
-//     else if(humanScore < computerScore){
-//         console.log("You lose! You scored " + humanScore + " points, while the computer scored " + computerScore + " points!");
-//     }
-// }
-
-console.log("ROCK PAPER SCISSORS GAME!");
-
-const btnRock = document.querySelector('#btnRock');
-const btnPaper = document.querySelector('#btnPaper');
-const btnScissors = document.querySelector('#btnScissors');
+// Init buttons
+const btnRock = document.querySelector("#btnRock");
+const btnPaper = document.querySelector("#btnPaper");
+const btnScissors = document.querySelector("#btnScissors");
 
 btnRock.addEventListener("click", () => 
     playRound("ROCK"));
@@ -116,11 +85,4 @@ btnPaper.addEventListener("click", () =>
     playRound("PAPER"));
 btnScissors.addEventListener("click", () =>
     playRound("SCISSORS"));
-
-
-
-
-
-
-
 
