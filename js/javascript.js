@@ -40,13 +40,14 @@ function playRound(humanChoice){
     displayResult(result, humanChoice, computerChoice);
 }
 
-// Fills the result container div with content that communicates a round's result data to the user
+/* Update the result container with the outcome of the current round,
+    displaying the round number, choices and scores*/
 function displayResult(result, humanChoice, computerChoice){
 
     // Clear result container
     resultContainer.innerHTML = "";
 
-    if(round == MAX_ROUNDS){
+    if(round === MAX_ROUNDS){
         announceWinner();
     }
     else{
