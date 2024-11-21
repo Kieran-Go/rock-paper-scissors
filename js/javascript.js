@@ -40,6 +40,7 @@ function playRound(humanChoice){
     displayResult(result, humanChoice, computerChoice);
 }
 
+// Fills the result container div with content that communicates a round's result data to the user
 function displayResult(result, humanChoice, computerChoice){
 
     // Clear result container
